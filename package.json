@@ -1,0 +1,16 @@
+{
+  "name": "bank-product-pages",
+  "private": true,
+  "packageManager": "pnpm@10.15.1",
+  "scripts": {
+    "build": "pnpm --filter @bank/contract build",
+    "test": "pnpm --filter @bank/contract test && pnpm --filter @bank/db test",
+    "db:up": "docker compose up -d postgres",
+    "db:migrate": "pnpm --filter @bank/db migrate",
+    "db:seed": "pnpm --filter @bank/db seed",
+    "typecheck": "pnpm --filter @bank/contract build && pnpm -r --filter \"!@bank/contract\" typecheck"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
