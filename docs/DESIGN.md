@@ -179,7 +179,7 @@ Docker Compose: `caddy`, `web`, `api`, `postgres`. GitHub Actions прогоня
 
 ```mermaid
 flowchart TB
-  router[Маршрут pages/:slug]
+  router["Маршруты / и /products/:slug"]
   view[PageView]
   list[BlockList]
   registry[Реестр типов]
@@ -201,7 +201,7 @@ flowchart TB
   registry --> form
 ```
 
-`PageView` один на главную и на продукт. Главная — это страница со slug `home` и блоком карточек.
+`PageView` один на главную и на продукт. Адрес `/` читает страницу со slug `home`. Адрес `/products/:slug` читает страницу продукта. Снаружи это разные маршруты, внутри оба получают один и тот же `PageDocument`.
 
 Блок получает уже разрешённые props и сам за данными страницы не ходит. Исключение — `ApplicationFormBlock`: он отправляет ответы на `POST /api/applications`.
 
