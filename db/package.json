@@ -1,0 +1,21 @@
+{
+  "name": "@bank/db",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "tsc -p tsconfig.json && node --test dist/catalog.test.js",
+    "migrate": "pnpm build && node dist/cli.js migrate",
+    "seed": "pnpm build && node dist/cli.js seed"
+  },
+  "dependencies": {
+    "@bank/contract": "workspace:*",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "@types/pg": "^8.15.5",
+    "typescript": "^5.9.2"
+  }
+}
