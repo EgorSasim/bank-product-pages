@@ -2,7 +2,7 @@
 
 Marketing site for a single bank. The home page and every product page are an ordered list of shared blocks. The server decides the order and the props. The browser renders a closed catalog of components.
 
-Public pages are server-rendered so search engines can index them. A few slots can vary by visitor segment. Product terms stay the same for people and for crawlers. A product page can include a schema-driven application form.
+Public pages are server-rendered so search engines can index them. SEO is a product requirement: a crawler must see the title and the product text in the first HTML response, the same terms a visitor gets on the default segment. A few slots can vary by visitor segment. Product terms stay the same for people and for crawlers. A product page can include a schema-driven application form.
 
 Stack: Angular SSR, NestJS, PostgreSQL, one TypeScript contract package.
 
