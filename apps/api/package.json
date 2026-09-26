@@ -6,7 +6,7 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "start": "pnpm build && node dist/main.js",
-    "test": "tsc -p tsconfig.json && node --test dist/segment.test.js dist/rate-limit.test.js dist/pages/assemble.test.js dist/applications/submit.test.js dist/http.test.js dist/catalog.integration.test.js"
+    "test": "tsc -p tsconfig.json && node --test dist/segment.test.js dist/rate-limit.test.js dist/pages/assemble.test.js dist/applications/submit.test.js dist/sessions/sign-in.test.js dist/http.test.js dist/catalog.integration.test.js"
   },
   "dependencies": {
     "@bank/contract": "workspace:*",

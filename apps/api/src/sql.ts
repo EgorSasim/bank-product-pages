@@ -41,3 +41,15 @@ export const insertSubmission = `
   values ($1, $2, $3, $4::jsonb)
   returning id
 `;
+
+export const selectUserByEmail = `
+  select id, password_hash from users where email = $1
+`;
+
+export const insertUser = `
+  insert into users (id, email, password_hash) values ($1, $2, $3)
+`;
+
+export const insertSession = `
+  insert into sessions (id, user_id) values ($1, $2)
+`;

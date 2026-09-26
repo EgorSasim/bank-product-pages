@@ -27,6 +27,6 @@ pnpm api:start
 pnpm web:start
 ```
 
-The API listens on port 3001. The site listens on port 4200 and renders `/` and `/products/:slug` on the server, so the first HTML response contains the page title and the product text. `GET /api/pages/:slug` reads `X-Segment` (`default`, `salary`, or `premium`). `POST /api/applications` stores an application only when the `session` cookie matches a row in `sessions`. Without that cookie, the apply button opens the auth modal and does not send the form.
+The API listens on port 3001. The site listens on port 4200 and renders `/` and `/products/:slug` on the server, so the first HTML response contains the page title and the product text. `GET /api/pages/:slug` reads `X-Segment` (`default`, `salary`, or `premium`). `POST /api/applications` stores an application only when the `session` cookie matches a row in `sessions`. Without that cookie, the apply button opens the auth modal and does not send the form. The modal calls `POST /api/session`: a new email creates an account, and a known email must match the stored password. After that the same application is sent.
 
 The password in `compose.yaml` is only for this local database.

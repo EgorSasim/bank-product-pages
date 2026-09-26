@@ -3,8 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, PLATFORM_ID, effect, inject, input, signal, untracked } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { validateAnswers, type FormField, type SubmitApplicationResult } from '@bank/contract';
+import { firstValueFrom } from 'rxjs';
 import { AuthPrompt } from '../auth-prompt';
-import { sessionFromCookie, showAuthModal } from '../session';
+import { showAuthModal } from '../session';
 
 type ApplicationBlock = {
   id: string;
@@ -76,12 +77,14 @@ export class ApplicationFormBlock {
       .map((error) => (error.message === 'required' ? 'Заполните поле' : error.message));
   }
 
-  submit(): void {
+  async submit(): Promise<void> {
     this.accepted.set(false);
-    const session = sessionFromCookie(isPlatformBrowser(this.platformId) ? document.cookie : undefined);
-    if (showAuthModal(session, true)) {
-      this.auth.ask();
-      return;
+    if (!isPlatformBrowser(this.platformId)) return;
+
+    const visitor = await firstValueFrom(this.http.get<{ state: 'anonymous' | 'authenticated' }>('/api/session'));
+    if (showAuthModal(visitor, true)) {
+      const signedIn = await this.auth.ask();
+      if (!signedIn) return;
     }
 
     const checked = validateAnswers(this.block().props.fields, this.form.getRawValue());

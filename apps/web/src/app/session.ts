@@ -8,7 +8,7 @@ export function sessionFromCookie(cookieHeader: string | undefined): Session {
   return id ? { state: 'authenticated', userId: id } : { state: 'anonymous' };
 }
 
-export function showAuthModal(session: Session, submitting: boolean): boolean {
+export function showAuthModal(session: { state: Session['state'] }, submitting: boolean): boolean {
   return submitting && session.state === 'anonymous';
 }
 

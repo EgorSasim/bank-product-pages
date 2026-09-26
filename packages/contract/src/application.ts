@@ -21,6 +21,33 @@ export type SubmitApplicationResult =
   | { status: 'invalid'; fieldErrors: FieldError[] }
   | { status: 'rate_limited' };
 
+export type SignInRequest = {
+  email: string;
+  password: string;
+};
+
+export type SignInResult =
+  | { status: 'authenticated' }
+  | { status: 'invalid'; fieldErrors: FieldError[] }
+  | { status: 'rate_limited' };
+
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+export function readSignIn(
+  input: unknown,
+): { ok: true; value: SignInRequest } | { ok: false; fieldErrors: FieldError[] } {
+  if (!isRecord(input)) {
+    return { ok: false, fieldErrors: [{ name: 'email', message: 'required' }] };
+  }
+
+  const fieldErrors: FieldError[] = [];
+  const email = typeof input.email === 'string' ? input.email.trim().toLowerCase() : '';
+  const password = typeof input.password === 'string' ? input.password : '';
+  if (!emailPattern.test(email)) fieldErrors.push({ name: 'email', message: 'must be an email' });
+  if (password.length < 8) fieldErrors.push({ name: 'password', message: 'must be at least 8 characters' });
+  return fieldErrors.length > 0 ? { ok: false, fieldErrors } : { ok: true, value: { email, password } };
+}
+
 export function canSubmit(session: Session): session is { state: 'authenticated'; userId: string } {
   return session.state === 'authenticated';
 }

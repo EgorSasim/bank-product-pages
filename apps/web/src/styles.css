@@ -170,4 +170,6 @@ main {
 
 .modal label { display: grid; gap: 0.35rem; }
 
-.modal-actions { display: flex; justify-content: flex-end; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 0.5rem; }
+
+.modal button.secondary { background: transparent; color: #1c2430; }

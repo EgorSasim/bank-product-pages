@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { canSubmit, validateAnswers } from './application.js';
+import { canSubmit, readSignIn, validateAnswers } from './application.js';
 import { parsePageDocument, readPageDocument } from './page.js';
 import { parseProductRecord } from './product.js';
 
@@ -106,6 +106,20 @@ test('answer check drops unknown keys and reports every missing required field',
 test('anonymous session cannot submit an application', () => {
   assert.equal(canSubmit({ state: 'anonymous' }), false);
   assert.equal(canSubmit({ state: 'authenticated', userId: 'user-1' }), true);
+});
+
+test('sign-in requires an email and a password of at least 8 characters', () => {
+  const missing = readSignIn({ email: 'not-an-email', password: 'short' });
+  assert.equal(missing.ok, false);
+  if (missing.ok) return;
+  assert.deepEqual(
+    missing.fieldErrors.map((error) => error.name),
+    ['email', 'password'],
+  );
+  const accepted = readSignIn({ email: ' Visitor@Example.COM ', password: 'long-enough' });
+  assert.equal(accepted.ok, true);
+  if (!accepted.ok) return;
+  assert.deepEqual(accepted.value, { email: 'visitor@example.com', password: 'long-enough' });
 });
 
 function card(slug: string, category: string, title: string, highlight: string) {
