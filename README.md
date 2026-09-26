@@ -11,7 +11,7 @@ The home page mixes product kinds in one list: cards, loans, deposits, leasing, 
 The design record, including rejected options and their consequences, is in [docs/DESIGN.md](docs/DESIGN.md).
 
 ```text
-apps/web              Angular SSR, added in a later step
+apps/web              Angular SSR for / and /products/:slug
 apps/api              NestJS page and application API
 packages/contract     block, product, and application types
 db                    SQL migrations and the catalog seed
@@ -24,8 +24,9 @@ pnpm db:up
 pnpm db:migrate
 pnpm db:seed
 pnpm api:start
+pnpm web:start
 ```
 
-The API listens on port 3001. `GET /api/pages/:slug` reads `X-Segment` (`default`, `salary`, or `premium`). `POST /api/applications` stores an application only when the `session` cookie matches a row in `sessions`.
+The API listens on port 3001. The site listens on port 4200 and renders `/` and `/products/:slug` on the server, so the first HTML response contains the page title and the product text. `GET /api/pages/:slug` reads `X-Segment` (`default`, `salary`, or `premium`). `POST /api/applications` stores an application only when the `session` cookie matches a row in `sessions`. Without that cookie, the apply button opens the auth modal and does not send the form.
 
 The password in `compose.yaml` is only for this local database.

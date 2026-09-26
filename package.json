@@ -4,8 +4,9 @@
   "packageManager": "pnpm@10.15.1",
   "scripts": {
     "build": "pnpm --filter @bank/contract build",
-    "test": "pnpm --filter @bank/contract test && pnpm --filter @bank/db test && pnpm --filter @bank/api test",
+    "test": "pnpm --filter @bank/contract test && pnpm --filter @bank/db test && pnpm --filter @bank/api test && pnpm --filter @bank/web test",
     "api:start": "pnpm --filter @bank/api start",
+    "web:start": "pnpm --filter @bank/web start",
     "db:up": "docker compose up -d postgres",
     "db:migrate": "pnpm --filter @bank/db migrate",
     "db:seed": "pnpm --filter @bank/db seed",

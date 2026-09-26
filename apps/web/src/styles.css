@@ -1,0 +1,173 @@
+:root {
+  color: #1c2430;
+  background: #f3f0e8;
+  font-family: "Avenir Next", "Segoe UI", sans-serif;
+  line-height: 1.5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+}
+
+a { color: inherit; }
+
+.skip {
+  position: absolute;
+  left: -999px;
+}
+
+.skip:focus { left: 1rem; top: 1rem; background: white; padding: 0.5rem; }
+
+.site-header {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.25rem 1.5rem 0;
+}
+
+.site-header a {
+  font-family: Palatino, "Palatino Linotype", serif;
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.hero h1 {
+  margin: 0 0 0.5rem;
+  font-family: Palatino, "Palatino Linotype", serif;
+  font-size: 3rem;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.hero p, .prose p { font-size: 1.125rem; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards a {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 100%;
+  padding: 1.25rem;
+  text-decoration: none;
+  background: white;
+  border: 1px solid #ddd6c8;
+  border-radius: 16px;
+}
+
+.cards span {
+  color: #0f6b4c;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.cards h2, .facts h2 { margin: 0; font-size: 1.35rem; }
+
+.cards strong { margin-top: auto; color: #0f6b4c; }
+
+.facts, .application, .prose { margin-top: 2rem; }
+
+.facts dl, .stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 0;
+}
+
+.facts div, .stats article, .application {
+  padding: 1rem 1.25rem;
+  background: white;
+  border: 1px solid #ddd6c8;
+  border-radius: 16px;
+}
+
+.facts dt { color: #5c6672; }
+
+.facts dd, .stats p {
+  margin: 0.25rem 0 0;
+  font-size: 1.5rem;
+  font-family: Palatino, "Palatino Linotype", serif;
+}
+
+.stats h2 { margin: 0.25rem 0 0; font-size: 0.95rem; font-weight: 500; color: #5c6672; }
+
+.application {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.application h2 { margin: 0; }
+
+.application label {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.application input[type="text"],
+.application input[type="email"],
+.application input[type="password"],
+.application select,
+.modal input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #cfc6b6;
+  border-radius: 10px;
+  font: inherit;
+  background: #fffdf8;
+}
+
+.application button, .modal button {
+  justify-self: start;
+  padding: 0.75rem 1.25rem;
+  border: 0;
+  border-radius: 999px;
+  background: #0f6b4c;
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+
+.field-error { margin: 0; color: #8a2b2b; }
+
+.accepted { margin: 0; color: #0f6b4c; }
+
+.missing { font-size: 1.25rem; }
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgb(28 36 48 / 45%);
+}
+
+.modal {
+  width: min(420px, 100%);
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  background: #fffdf8;
+  border-radius: 18px;
+}
+
+.modal h2 { margin: 0; font-family: Palatino, "Palatino Linotype", serif; }
+
+.modal label { display: grid; gap: 0.35rem; }
+
+.modal-actions { display: flex; justify-content: flex-end; }

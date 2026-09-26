@@ -1,14 +1,36 @@
 {
   "name": "@bank/web",
+  "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "ng": "ng",
+    "start": "ng serve --port 4200",
+    "build": "ng build",
+    "typecheck": "ng build --configuration development",
+    "test": "node --experimental-strip-types --test src/app/session.test.ts",
+    "serve:ssr": "node dist/web/server/server.mjs"
   },
   "dependencies": {
-    "@bank/contract": "workspace:*"
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/platform-server": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "@angular/ssr": "^21.2.24",
+    "@bank/contract": "workspace:*",
+    "express": "^5.1.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
   },
   "devDependencies": {
-    "typescript": "^5.9.2"
+    "@angular/build": "^21.2.24",
+    "@angular/cli": "^21.2.24",
+    "@angular/compiler-cli": "^21.2.0",
+    "@types/express": "^5.0.1",
+    "@types/node": "^20.17.19",
+    "prettier": "^3.8.1",
+    "typescript": "~5.9.2"
   }
 }
