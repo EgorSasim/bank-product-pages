@@ -18,7 +18,8 @@ export type ApplicationRequest = {
 export type SubmitApplicationResult =
   | { status: 'authentication_required' }
   | { status: 'accepted'; submissionId: string }
-  | { status: 'invalid'; fieldErrors: FieldError[] };
+  | { status: 'invalid'; fieldErrors: FieldError[] }
+  | { status: 'rate_limited' };
 
 export function canSubmit(session: Session): session is { state: 'authenticated'; userId: string } {
   return session.state === 'authenticated';

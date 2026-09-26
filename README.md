@@ -12,7 +12,7 @@ The design record, including rejected options and their consequences, is in [doc
 
 ```text
 apps/web              Angular SSR, added in a later step
-apps/api              NestJS, added in a later step
+apps/api              NestJS page and application API
 packages/contract     block, product, and application types
 db                    SQL migrations and the catalog seed
 ```
@@ -23,6 +23,9 @@ Local Postgres:
 pnpm db:up
 pnpm db:migrate
 pnpm db:seed
+pnpm api:start
 ```
+
+The API listens on port 3001. `GET /api/pages/:slug` reads `X-Segment` (`default`, `salary`, or `premium`). `POST /api/applications` stores an application only when the `session` cookie matches a row in `sessions`.
 
 The password in `compose.yaml` is only for this local database.
