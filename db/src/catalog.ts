@@ -12,20 +12,25 @@ export const pageIds = {
 export const blockIds = {
   homeHero: '30000000-0000-4000-8000-000000000001',
   homeCards: '30000000-0000-4000-8000-000000000002',
+  cardCarousel: '30000000-0000-4000-8000-000000000015',
   cardHero: '30000000-0000-4000-8000-000000000003',
   cardFacts: '30000000-0000-4000-8000-000000000004',
   cardForm: '30000000-0000-4000-8000-000000000005',
+  loanCarousel: '30000000-0000-4000-8000-000000000016',
   loanHero: '30000000-0000-4000-8000-000000000006',
   loanStats: '30000000-0000-4000-8000-000000000007',
   loanForm: '30000000-0000-4000-8000-000000000008',
+  depositCarousel: '30000000-0000-4000-8000-000000000017',
   depositHero: '30000000-0000-4000-8000-000000000009',
   depositStats: '30000000-0000-4000-8000-00000000000a',
   depositStory: '30000000-0000-4000-8000-00000000000b',
   depositForm: '30000000-0000-4000-8000-00000000000c',
+  leasingCarousel: '30000000-0000-4000-8000-000000000018',
   leasingHero: '30000000-0000-4000-8000-00000000000d',
   leasingFacts: '30000000-0000-4000-8000-00000000000e',
   leasingStory: '30000000-0000-4000-8000-00000000000f',
   leasingForm: '30000000-0000-4000-8000-000000000010',
+  installmentCarousel: '30000000-0000-4000-8000-000000000019',
   installmentHero: '30000000-0000-4000-8000-000000000011',
   installmentStory: '30000000-0000-4000-8000-000000000012',
   installmentStats: '30000000-0000-4000-8000-000000000013',
@@ -55,7 +60,7 @@ export type SeedProduct = {
 export type SeedVariant = {
   blockId: string;
   segment: 'salary' | 'premium';
-  props: { paragraphs: string[] };
+  props: { paragraphs: string[] } | { slides: { src: string; alt: string }[] };
 };
 
 const consent: FormField = {
@@ -98,6 +103,7 @@ export const pages: SeedPage[] = [
       title: 'Кредитная карта',
       description: 'Льготный период и кэшбэк',
       blocks: [
+        banners(blockIds.cardCarousel, [1, 2, 3]),
         {
           id: blockIds.cardHero,
           type: 'hero',
@@ -134,6 +140,12 @@ export const pages: SeedPage[] = [
           type: 'hero',
           props: { title: 'Кредит наличными', subtitle: 'На любые цели' },
         },
+        form(blockIds.loanForm, 'Заявка на кредит', [
+          fullName,
+          { name: 'income', kind: 'text', label: 'Ежемесячный доход', required: true },
+          { name: 'term', kind: 'select', label: 'Срок', required: true, options: ['12', '36', '60'] },
+          consent,
+        ]),
         {
           id: blockIds.loanStats,
           type: 'stats',
@@ -144,12 +156,7 @@ export const pages: SeedPage[] = [
             ],
           },
         },
-        form(blockIds.loanForm, 'Заявка на кредит', [
-          fullName,
-          { name: 'income', kind: 'text', label: 'Ежемесячный доход', required: true },
-          { name: 'term', kind: 'select', label: 'Срок', required: true, options: ['12', '36', '60'] },
-          consent,
-        ]),
+        banners(blockIds.loanCarousel, [4, 5, 2]),
       ],
     },
   },
@@ -160,11 +167,6 @@ export const pages: SeedPage[] = [
       title: 'Вклад',
       description: 'Срок и ставка вклада',
       blocks: [
-        {
-          id: blockIds.depositHero,
-          type: 'hero',
-          props: { title: 'Вклад', subtitle: 'Фиксированная ставка на весь срок' },
-        },
         {
           id: blockIds.depositStats,
           type: 'stats',
@@ -182,6 +184,12 @@ export const pages: SeedPage[] = [
             paragraphs: ['Проценты начисляются в конце срока. Пополнение и снятие не предусмотрены.'],
           },
         },
+        {
+          id: blockIds.depositHero,
+          type: 'hero',
+          props: { title: 'Вклад', subtitle: 'Фиксированная ставка на весь срок' },
+        },
+        banners(blockIds.depositCarousel, [6, 1, 4]),
         form(blockIds.depositForm, 'Открыть вклад', [
           fullName,
           { name: 'amount', kind: 'text', label: 'Сумма', required: true },
@@ -199,11 +207,6 @@ export const pages: SeedPage[] = [
       description: 'Первый взнос и срок лизинга',
       blocks: [
         {
-          id: blockIds.leasingHero,
-          type: 'hero',
-          props: { title: 'Лизинг авто', subtitle: 'Для бизнеса и частных клиентов' },
-        },
-        {
           id: blockIds.leasingFacts,
           type: 'keyFacts',
           props: {
@@ -214,12 +217,11 @@ export const pages: SeedPage[] = [
             ],
           },
         },
+        banners(blockIds.leasingCarousel, [3, 6, 5]),
         {
-          id: blockIds.leasingStory,
-          type: 'richText',
-          props: {
-            paragraphs: ['Предмет лизинга остаётся в собственности банка до выкупа.'],
-          },
+          id: blockIds.leasingHero,
+          type: 'hero',
+          props: { title: 'Лизинг авто', subtitle: 'Для бизнеса и частных клиентов' },
         },
         form(blockIds.leasingForm, 'Заявка на лизинг', [
           fullName,
@@ -233,6 +235,13 @@ export const pages: SeedPage[] = [
           },
           consent,
         ]),
+        {
+          id: blockIds.leasingStory,
+          type: 'richText',
+          props: {
+            paragraphs: ['Предмет лизинга остаётся в собственности банка до выкупа.'],
+          },
+        },
       ],
     },
   },
@@ -244,17 +253,24 @@ export const pages: SeedPage[] = [
       description: 'Оплата покупки частями',
       blocks: [
         {
-          id: blockIds.installmentHero,
-          type: 'hero',
-          props: { title: 'Рассрочка', subtitle: 'Без переплаты у партнёров' },
-        },
-        {
           id: blockIds.installmentStory,
           type: 'richText',
           props: {
             paragraphs: ['Платёж делится на равные части. Досрочное погашение не меняет график комиссий.'],
           },
         },
+        {
+          id: blockIds.installmentHero,
+          type: 'hero',
+          props: { title: 'Рассрочка', subtitle: 'Без переплаты у партнёров' },
+        },
+        form(blockIds.installmentForm, 'Оформить рассрочку', [
+          fullName,
+          { name: 'phone', kind: 'text', label: 'Телефон', required: true },
+          { name: 'months', kind: 'select', label: 'Срок', required: true, options: ['3', '6', '10'] },
+          consent,
+        ]),
+        banners(blockIds.installmentCarousel, [2, 5, 1]),
         {
           id: blockIds.installmentStats,
           type: 'stats',
@@ -265,12 +281,6 @@ export const pages: SeedPage[] = [
             ],
           },
         },
-        form(blockIds.installmentForm, 'Оформить рассрочку', [
-          fullName,
-          { name: 'phone', kind: 'text', label: 'Телефон', required: true },
-          { name: 'months', kind: 'select', label: 'Срок', required: true, options: ['3', '6', '10'] },
-          consent,
-        ]),
       ],
     },
   },
@@ -327,10 +337,33 @@ export const variants: SeedVariant[] = [
       paragraphs: ['Для зарплатных клиентов ставка выше на 0,5 п.п. Условия вклада в блоке показателей те же.'],
     },
   },
+  {
+    blockId: blockIds.cardCarousel,
+    segment: 'salary',
+    props: {
+      slides: [6, 3, 1].map((number) => ({
+        src: `/banners/banner-${number}.svg`,
+        alt: `Баннер${number}`,
+      })),
+    },
+  },
 ];
 
 function form(id: string, title: string, fields: FormField[]): PageDocument['blocks'][number] {
   return { id, type: 'applicationForm', props: { title, fields } };
+}
+
+function banners(id: string, numbers: number[]): PageDocument['blocks'][number] {
+  return {
+    id,
+    type: 'bannerCarousel',
+    props: {
+      slides: numbers.map((number) => ({
+        src: `/banners/banner-${number}.svg`,
+        alt: `Баннер${number}`,
+      })),
+    },
+  };
 }
 
 function product(id: string, pageId: string, homePosition: number, record: ProductRecord): SeedProduct {

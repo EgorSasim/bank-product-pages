@@ -80,7 +80,36 @@ main {
 
 .cards strong { margin-top: auto; color: #0f6b4c; }
 
-.facts, .application, .prose { margin-top: 2rem; }
+.facts, .application, .prose, .banner-carousel { margin-top: 2rem; }
+
+.banner-carousel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.banner-carousel img {
+  width: 100%;
+  aspect-ratio: 3 / 1;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 16px;
+  background: #ddd6c8;
+}
+
+.banner-carousel button {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid #ddd6c8;
+  border-radius: 999px;
+  background: white;
+  color: #1c2430;
+  font-size: 1.75rem;
+  line-height: 1;
+  cursor: pointer;
+}
 
 .facts dl, .stats {
   display: grid;

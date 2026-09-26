@@ -6,7 +6,7 @@ Public pages are server-rendered so search engines can index them. SEO is a prod
 
 Stack: Angular SSR, NestJS, PostgreSQL, one TypeScript contract package.
 
-The home page mixes product kinds in one list: cards, loans, deposits, leasing, installments. Reading the site does not require an account. Applying for a product opens an auth modal, and the application is stored only after a session exists.
+The home page mixes product kinds in one list: cards, loans, deposits, leasing, installments. Each product page uses those shared blocks in its own order, including a banner carousel whose slides are local images labeled «Баннер1» through «Баннер6». Reading the site does not require an account. Applying for a product opens an auth modal, and the application is stored only after a session exists.
 
 The design record, including rejected options and their consequences, is in [docs/DESIGN.md](docs/DESIGN.md).
 

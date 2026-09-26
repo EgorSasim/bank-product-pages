@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320" role="img" aria-label="Баннер1">
+  <rect width="960" height="320" fill="#0f6b4c"/>
+  <rect x="0" y="0" width="16" height="320" fill="#f3f0e8"/>
+  <text x="56" y="186" fill="#fffdf8" font-family="Palatino, Georgia, serif" font-size="84">Баннер1</text>
+</svg>

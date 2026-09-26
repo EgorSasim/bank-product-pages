@@ -12,6 +12,7 @@ export type Block =
   | { id: string; type: 'keyFacts'; props: { title: string; items: { label: string; value: string }[] } }
   | { id: string; type: 'stats'; props: { items: { label: string; value: string }[] } }
   | { id: string; type: 'productCards'; props: { cards: ProductCard[] } }
+  | { id: string; type: 'bannerCarousel'; props: { slides: { src: string; alt: string }[] } }
   | { id: string; type: 'applicationForm'; props: { title: string; fields: FormField[] } };
 
 export type BlockType = Block['type'];
@@ -22,6 +23,7 @@ export const blockTypes = [
   'keyFacts',
   'stats',
   'productCards',
+  'bannerCarousel',
   'applicationForm',
 ] as const satisfies readonly BlockType[];
 
@@ -112,6 +114,8 @@ function parseProps(type: BlockType, input: unknown, index: number): ParseResult
       return parseLabeledItems(input, index, false);
     case 'productCards':
       return parseProductCards(input, index);
+    case 'bannerCarousel':
+      return parseBannerCarousel(input, index);
     case 'applicationForm':
       return parseApplicationForm(input, index);
   }
@@ -179,6 +183,28 @@ function parseProductCards(input: Record<string, unknown>, index: number): Parse
     cards.push(parsed.value);
   }
   return ok({ cards });
+}
+
+function parseBannerCarousel(
+  input: Record<string, unknown>,
+  index: number,
+): ParseResult<{ slides: { src: string; alt: string }[] }> {
+  if (!Array.isArray(input.slides) || input.slides.length === 0) {
+    return fail(`blocks[${index}].props.slides must be a non-empty array`);
+  }
+  const slides: { src: string; alt: string }[] = [];
+  for (const slide of input.slides) {
+    if (!isRecord(slide)) return fail(`blocks[${index}].props.slides must contain objects`);
+    const src = readString(slide.src, `blocks[${index}].props.slides.src`);
+    const alt = readString(slide.alt, `blocks[${index}].props.slides.alt`);
+    if (!src.ok) return src;
+    if (!alt.ok) return alt;
+    if (!src.value.startsWith('/banners/') || src.value.includes('..')) {
+      return fail(`blocks[${index}].props.slides.src must point at /banners/`);
+    }
+    slides.push({ src: src.value, alt: alt.value });
+  }
+  return ok({ slides });
 }
 
 function parseApplicationForm(

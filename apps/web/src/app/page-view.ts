@@ -5,6 +5,7 @@ import { Meta, Title } from '@angular/platform-browser';
 import { REQUEST } from '@angular/core';
 import type { PageDocument } from '@bank/contract';
 import { ApplicationFormBlock } from './blocks/application-form';
+import { BannerCarouselBlock } from './blocks/banner-carousel';
 import { HeroBlock } from './blocks/hero';
 import { KeyFactsBlock } from './blocks/key-facts';
 import { ProductCardsBlock } from './blocks/product-cards';
@@ -13,7 +14,7 @@ import { StatsBlock } from './blocks/stats';
 
 @Component({
   selector: 'app-page-view',
-  imports: [HeroBlock, RichTextBlock, KeyFactsBlock, StatsBlock, ProductCardsBlock, ApplicationFormBlock],
+  imports: [HeroBlock, RichTextBlock, KeyFactsBlock, StatsBlock, ProductCardsBlock, BannerCarouselBlock, ApplicationFormBlock],
   template: `
     @if (page(); as page) {
       <article>
@@ -33,6 +34,9 @@ import { StatsBlock } from './blocks/stats';
             }
             @case ('productCards') {
               <app-product-cards [props]="block.props" />
+            }
+            @case ('bannerCarousel') {
+              <app-banner-carousel [props]="block.props" />
             }
             @case ('applicationForm') {
               <app-application-form [block]="block" />

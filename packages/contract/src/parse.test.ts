@@ -74,6 +74,35 @@ test('read skips an unknown block and keeps the rest of the page', () => {
   );
 });
 
+test('banner carousel accepts local slides and rejects an outside image', () => {
+  const accepted = parsePageDocument({
+    slug: 'credit-card',
+    title: 'Кредитная карта',
+    description: 'Льготный период и кэшбэк',
+    blocks: [
+      {
+        id: 'banners',
+        type: 'bannerCarousel',
+        props: { slides: [{ src: '/banners/banner-1.svg', alt: 'Баннер1' }] },
+      },
+    ],
+  });
+  assert.equal(accepted.ok, true);
+  const rejected = parsePageDocument({
+    slug: 'credit-card',
+    title: 'Кредитная карта',
+    description: 'Льготный период и кэшбэк',
+    blocks: [
+      {
+        id: 'banners',
+        type: 'bannerCarousel',
+        props: { slides: [{ src: 'https://example.com/banner.png', alt: 'Баннер1' }] },
+      },
+    ],
+  });
+  assert.equal(rejected.ok, false);
+});
+
 test('product terms must use the same category as the product', () => {
   const parsed = parseProductRecord({
     slug: 'car-leasing',
