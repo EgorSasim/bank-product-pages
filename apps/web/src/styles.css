@@ -147,6 +147,18 @@ main {
   gap: 0.35rem;
 }
 
+.application label.check {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.application label.check input {
+  margin: 0;
+  flex: 0 0 auto;
+}
+
 .application input[type="text"],
 .application input[type="email"],
 .application input[type="password"],

@@ -19,22 +19,24 @@ type ApplicationBlock = {
     <form class="application" [formGroup]="form" (ngSubmit)="submit()">
       <h2>{{ block().props.title }}</h2>
       @for (field of block().props.fields; track field.name) {
-        <label [attr.for]="field.name">
-          <span>{{ field.label }}</span>
-          @switch (field.kind) {
-            @case ('text') {
-              <input [id]="field.name" type="text" [formControlName]="field.name" />
-            }
-            @case ('select') {
-              <select [id]="field.name" [formControlName]="field.name">
-                <option value="">Выберите</option>
-                @for (option of field.options; track option) {
-                  <option [value]="option">{{ option }}</option>
-                }
-              </select>
-            }
-            @case ('checkbox') {
-              <input [id]="field.name" type="checkbox" [formControlName]="field.name" />
+        <label [attr.for]="field.name" [class.check]="field.kind === 'checkbox'">
+          @if (field.kind === 'checkbox') {
+            <input [id]="field.name" type="checkbox" [formControlName]="field.name" />
+            <span>{{ field.label }}</span>
+          } @else {
+            <span>{{ field.label }}</span>
+            @switch (field.kind) {
+              @case ('text') {
+                <input [id]="field.name" type="text" [formControlName]="field.name" />
+              }
+              @case ('select') {
+                <select [id]="field.name" [formControlName]="field.name">
+                  <option value="">Выберите</option>
+                  @for (option of field.options; track option) {
+                    <option [value]="option">{{ option }}</option>
+                  }
+                </select>
+              }
             }
           }
         </label>
